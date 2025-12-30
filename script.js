@@ -543,118 +543,6 @@ function startNewSession() {
 
 
 // Music Player Functions
-function initializeMusicPlayer() {
-    const musicContent = document.querySelector('.music-content');
-    if (!musicContent) return;
-    
-    musicContent.innerHTML = `
-        <div class="spotify-container">
-            <div class="spotify-header">
-                <div class="spotify-logo">♪ Spotify Playlists</div>
-            </div>
-            <div class="spotify-embed-container">
-                <iframe id="spotify-iframe" 
-                        style="border-radius:12px" 
-                        src="" 
-                        width="100%" 
-                        height="200" 
-                        frameBorder="0" 
-                        allowfullscreen="" 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                        loading="lazy">
-                </iframe>
-            </div>
-            <div class="playlist-controls">
-                <button class="playlist-btn active" data-playlist="1">Playlist 1</button>
-                <button class="playlist-btn" data-playlist="2">Playlist 2</button>
-                <button class="playlist-btn" data-playlist="3">Playlist 3</button>
-            </div>
-            <div class="music-info">
-                <div class="current-playlist">Now Playing: Birthday Special Mix</div>
-                <div class="playlist-description">Lagu-lagu spesial untuk hari istimewa kamu ✨</div>
-            </div>
-        </div>
-    `;
-    
-    // Add music player event listeners
-    addSpotifyPlayerListeners();
-    
-    // Load default playlist
-    loadSpotifyPlaylist(1);
-}
-
-function addSpotifyPlayerListeners() {
-    const playlistBtns = document.querySelectorAll('.playlist-btn');
-    
-    playlistBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Remove active class from all buttons
-            playlistBtns.forEach(b => b.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Get playlist number
-            const playlistNum = parseInt(this.getAttribute('data-playlist'));
-            
-            // Load corresponding playlist
-            loadSpotifyPlaylist(playlistNum);
-        });
-    });
-}
-
-function loadSpotifyPlaylist(playlistNumber) {
-    const iframe = document.getElementById('spotify-iframe');
-    const currentPlaylist = document.querySelector('.current-playlist');
-    const playlistDescription = document.querySelector('.playlist-description');
-    
-    if (!iframe) return;
-    
-    // Playlist data - Ganti dengan link playlist Spotify kamu
-    const playlists = {
-        1: {
-            // Ganti dengan playlist pertama kamu
-            embedUrl: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWYtQSOiZF6hj?si=0b945793c2934ba1',
-            name: 'Birthday Special Mix',
-            description: 'Lagu-lagu spesial untuk hari istimewa kamu ✨'
-        },
-        2: {
-            // Ganti dengan playlist kedua kamu
-            embedUrl: 'https://open.spotify.com/embed/playlist/3gPSenyxZMdB3A54HeEruz?si=6b4dec830d4f4a48',
-            name: 'Love Songs Collection',
-            description: 'Koleksi lagu cinta terbaik untuk kita ❤️'
-        },
-        3: {
-            // Ganti dengan playlist ketiga kamu
-            embedUrl: 'https://open.spotify.com/embed/playlist/4dlQ4JHE6abxv38aae2HL1?si=95730613199e4dad',
-            name: 'Happy Memories',
-            description: 'Lagu-lagu yang mengingatkan kenangan indah 🌟'
-        }
-    };
-    
-    const selectedPlaylist = playlists[playlistNumber];
-    
-    if (selectedPlaylist) {
-        // Update iframe source
-        iframe.src = selectedPlaylist.embedUrl;
-        
-        // Update info
-        if (currentPlaylist) {
-            currentPlaylist.textContent = `Now Playing: ${selectedPlaylist.name}`;
-        }
-        
-        if (playlistDescription) {
-            playlistDescription.textContent = selectedPlaylist.description;
-        }
-        
-        // Add loading effect
-        iframe.style.opacity = '0.5';
-        
-        iframe.onload = function() {
-            this.style.opacity = '1';
-        };
-    }
-}
 
 // Tetris Game Functions
 function initializeTetris() {
@@ -710,7 +598,7 @@ function initializeTetris() {
         gameRunning: false,
         dropTime: 0,
         lastTime: 0,
-        dropInterval: 1000,
+        dropInterval: 400,
         blockSize: blockSize,
         boardWidth: 10,
         boardHeight: boardHeight
