@@ -888,7 +888,7 @@ function clearLines() {
         
         // Level progression
         gameLevel = Math.floor(gameLines / 10) + 1;
-        tetrisGame.dropInterval = Math.max(50, 1000 - (gameLevel - 1) * 50);
+        tetrisGame.dropInterval = Math.max(50, 300 - (gameLevel - 1) * 50);
         
         updateTetrisStats();
     }
